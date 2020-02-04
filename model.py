@@ -332,7 +332,8 @@ class GELU(nn.Module):
         # The first approximation has more operations than the second
         # See https://arxiv.org/abs/1606.08415
         #return 0.5 * x * (1 + torch.tanh(math.sqrt(2 / math.pi) * (x + 0.044715 * torch.pow(x, 3))))
-        return x * torch.sigmoid(1.702 * x)
+        # return x * torch.sigmoid(1.702 * x)
+        return x.mul(torch.tanh(F.softplus(x)))
 
 #@torch.jit.script
 #def GELU(x):
